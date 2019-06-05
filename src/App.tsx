@@ -1,5 +1,6 @@
 import { observer } from "mobx-react";
 import * as React from "react";
+import ToDoList from "./components/toDoList/ToDoList";
 import listStore from "./stores/listStore";
 
 @observer
@@ -16,6 +17,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <div>{this.store.itemList}</div>;
+    return (
+      <div>
+        <ToDoList toDoList={this.store.itemList} />;
+      </div>
+    );
   }
 }

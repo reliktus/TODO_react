@@ -1,0 +1,28 @@
+.toDoList {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px;
+
+    .tasks {
+        background-color: yellow;
+    }
+
+    .noTasks {
+        background-color: green;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        padding: 5px;
+        div {
+            padding: 5px;
+        }
+    }
+    .padding {
+        padding: 5px;
+    }
+}

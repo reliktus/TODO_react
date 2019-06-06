@@ -11,43 +11,29 @@ export default class App extends React.Component<{}, { taskName: string }> {
     constructor(props: any) {
         super(props);
         this.store = new listStore();
-        this.state = {
-            taskName: ''
-        };
     }
 
     componentDidMount() {
-        this.firstInit();
-    }
-
-    private firstInit() {
         this.store.loadItems();
     }
 
     render() {
         return (
             <div className={styles.app}>
-                <div className={styles.container + ' ' + styles.column}>
-                    <div>
-                        <input
-                            placeholder="Write task name.."
-                            value={this.state.taskName}
-                            onChange={this.updateTaskName}
-                        />
-                        <button onClick={this.addTask}>Add task</button>
-                    </div>
-                    <ToDoList toDoList={this.store.toDoList} />
+                <div>
+                    <input placeholder="Write task name.." value={this.store.newTask} onChange={this.updateTaskName} />
+                    <button onClick={this.addTask}>Add task</button>
                 </div>
+                <ToDoList toDoList={this.store.toDoList} />
             </div>
         );
     }
 
     private addTask = () => {
-        console.log('addtask:');
-        this.store.addTask(this.state.taskName);
+        this.store.addTask();
     };
 
     private updateTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ taskName: event.target.value });
+        this.store.updateNewTaskName(event.target.value);
     };
 }

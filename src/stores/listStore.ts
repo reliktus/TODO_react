@@ -3,14 +3,19 @@ import { observable } from 'mobx';
 export default class listStore {
     @observable public toDoList: string[] = [];
     @observable public doneList: string[] = [];
+    @observable public newTask: string = '';
 
     public loadItems() {
         const newItems = ['task1', 'task2', 'task3'];
         this.toDoList = [...newItems];
     }
 
-    public addTask(task: string) {
-        this.toDoList.push(task);
+    public addTask() {
+        this.toDoList.push(this.newTask);
+    }
+
+    public updateNewTaskName(inputValue: string) {
+        this.newTask = inputValue;
     }
 
     public removeTask(taskIndex: number) {

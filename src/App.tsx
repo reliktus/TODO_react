@@ -1,8 +1,8 @@
+import styles from 'App.module.scss';
+import ToDoList from 'components/toDoList/ToDoList';
 import { observer } from 'mobx-react';
 import * as React from 'react';
-import styles from './App.module.scss';
-import ToDoList from './components/toDoList/ToDoList';
-import listStore from './stores/listStore';
+import listStore from 'stores/listStore';
 
 @observer
 export default class App extends React.Component<{}, { taskName: string }> {

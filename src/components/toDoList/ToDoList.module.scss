@@ -8,6 +8,15 @@
 
     .tasks {
         background-color: yellow;
+        .done {
+            margin: auto 5px auto auto;
+            button {
+                color: green;
+            }
+        }
+        .remove button {
+            color: red;
+        }
     }
 
     .noTasks {
@@ -18,11 +27,6 @@
         display: flex;
         flex-direction: row;
         padding: 5px;
-        div {
-            padding: 5px;
-        }
-    }
-    .padding {
-        padding: 5px;
+        justify-content: space-between;
     }
 }

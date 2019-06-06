@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export default class toStore {
+export default class listStore {
     @observable public toDoList: string[] = [];
     @observable public doneList: string[] = [];
 
@@ -11,5 +11,10 @@ export default class toStore {
 
     public addTask(task: string) {
         this.toDoList.push(task);
+    }
+
+    public removeTask(taskIndex: number) {
+        console.log('remove task index in store', taskIndex);
+        this.toDoList.splice(taskIndex, 1);
     }
 }

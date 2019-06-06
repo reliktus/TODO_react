@@ -1,11 +1,13 @@
-import { computed } from 'mobx';
+import { computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
+import listStore from 'stores/listStore';
 import { IToDoListProps } from './IToDoListProps';
 import styles from './ToDoList.module.scss';
 
 @observer
 export default class ToDoList extends React.Component<IToDoListProps, {}> {
+    @observable private store: listStore = new listStore();
     @computed get list() {
         return this.props.toDoList;
     }
@@ -36,8 +38,12 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
                             <div>
                                 [ {index + 1} ] {item}
                             </div>
-                            <button>V</button>
-                            <button onClick={() => this.removeTask(item)}>X</button>
+                            <span className={styles.done}>
+                                <button>V</button>
+                            </span>
+                            <span className={styles.remove}>
+                                <button onClick={() => this.removeTask(index)}>X</button>
+                            </span>
                         </div>
                     );
                 })}
@@ -45,7 +51,7 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
         );
     }
 
-    private removeTask = (task: string) => {
-        console.log(task);
+    private removeTask = (taskIndex: number) => {
+        this.store.removeTask(taskIndex);
     };
 }

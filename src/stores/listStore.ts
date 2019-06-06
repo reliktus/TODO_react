@@ -18,6 +18,10 @@ export default class listStore {
         this.newTask = inputValue;
     }
 
+    public clearTaskName() {
+        this.newTask = '';
+    }
+
     public removeTask(taskIndex: number) {
         console.log('remove task index in store', taskIndex);
         this.toDoList.splice(taskIndex, 1);

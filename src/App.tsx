@@ -21,13 +21,25 @@ export default class App extends React.Component<{}, { taskName: string }> {
         return (
             <div className={styles.app}>
                 <div>
-                    <input placeholder="Write task name.." value={this.store.newTask} onChange={this.updateTaskName} />
+                    <input
+                        placeholder="Write task name.."
+                        value={this.store.newTask}
+                        onChange={this.updateTaskName}
+                        onKeyPress={this.addTaskByButton}
+                    />
                     <button onClick={this.addTask}>Add task</button>
                 </div>
                 <ToDoList toDoList={this.store.toDoList} />
             </div>
         );
     }
+
+    private addTaskByButton = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.which === 13) {
+            this.addTask();
+            this.store.clearTaskName();
+        }
+    };
 
     private addTask = () => {
         this.store.addTask();

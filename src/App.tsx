@@ -7,45 +7,46 @@ import listStore from 'stores/listStore';
 
 @observer
 export default class App extends React.Component<{}, { taskName: string }> {
-    private store: listStore;
+    private listStore: listStore;
 
     constructor(props: any) {
         super(props);
-        this.store = new listStore();
+        this.listStore = new listStore();
     }
 
     componentDidMount() {
-        this.store.loadItems();
+        this.listStore.loadItems();
     }
 
     private addTaskByButton = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.which === 13) {
             this.addTask();
-            this.store.clearTaskName();
+            this.listStore.clearTaskName();
         }
     };
 
     private addTask = () => {
-        this.store.addTask();
+        this.listStore.addTask();
     };
 
-    private updateTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.store.updateNewTaskName(event.target.value);
+    private updateTaskNameInStore = (event: React.ChangeEvent<HTMLInputElement>) => {
+        this.listStore.updateNewTaskName(event.target.value);
     };
 
     render() {
+        const stores = { store1: this.listStore };
         return (
-            <Provider store={this.store}>
+            <Provider {...stores}>
                 <div className={styles.app}>
                     <input
                         placeholder="Write task name.."
-                        value={this.store.newTask}
-                        onChange={this.updateTaskName}
+                        value={this.listStore.newTask}
+                        onChange={this.updateTaskNameInStore}
                         onKeyPress={this.addTaskByButton}
                     />
                     <button onClick={this.addTask}>Add task</button>
-                    <ToDoList toDoList={this.store.toDoList} />
-                    {this.store.doneList.length > 0 && <DoneList />}
+                    <ToDoList />
+                    {this.listStore.doneList.length > 0 && <DoneList />}
                 </div>
             </Provider>
         );

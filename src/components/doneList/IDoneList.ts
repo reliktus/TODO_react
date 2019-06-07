@@ -1,5 +1,5 @@
 import listStore from 'stores/listStore';
 
-export interface IToDoListProps {
+export interface IDoneList {
     store1?: listStore;
 }

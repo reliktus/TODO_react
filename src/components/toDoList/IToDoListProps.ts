@@ -1,3 +1,4 @@
 export interface IToDoListProps {
-  toDoList: string[];
+    toDoList: string[];
+    // store?: listStore;
 }

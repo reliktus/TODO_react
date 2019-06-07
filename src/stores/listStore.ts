@@ -22,8 +22,10 @@ export default class listStore {
         this.newTask = '';
     }
 
-    public removeTask(taskIndex: number) {
+    public removeTask = (taskIndex: number) => {
+        console.log('todolist before remove', this.toDoList);
         console.log('remove task index in store', taskIndex);
         this.toDoList.splice(taskIndex, 1);
-    }
+        console.log('todolist afer remove', this.toDoList);
+    };
 }

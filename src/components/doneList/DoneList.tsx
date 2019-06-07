@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
+import React from 'react';
 import style from './DoneList.module.scss';
 
-export default class DoneList extends Component {
+@observer
+export default class DoneList extends React.Component<{}, {}> {
     render() {
         return <div className={style.doneList}>Done list:</div>;
     }

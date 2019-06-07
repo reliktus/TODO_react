@@ -1,6 +1,7 @@
 import styles from 'App.module.scss';
+import DoneList from 'components/doneList/DoneList';
 import ToDoList from 'components/toDoList/ToDoList';
-import { observer } from 'mobx-react';
+import { observer, Provider } from 'mobx-react';
 import * as React from 'react';
 import listStore from 'stores/listStore';
 
@@ -17,23 +18,6 @@ export default class App extends React.Component<{}, { taskName: string }> {
         this.store.loadItems();
     }
 
-    render() {
-        return (
-            <div className={styles.app}>
-                <div>
-                    <input
-                        placeholder="Write task name.."
-                        value={this.store.newTask}
-                        onChange={this.updateTaskName}
-                        onKeyPress={this.addTaskByButton}
-                    />
-                    <button onClick={this.addTask}>Add task</button>
-                </div>
-                <ToDoList toDoList={this.store.toDoList} />
-            </div>
-        );
-    }
-
     private addTaskByButton = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.which === 13) {
             this.addTask();
@@ -48,4 +32,22 @@ export default class App extends React.Component<{}, { taskName: string }> {
     private updateTaskName = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.store.updateNewTaskName(event.target.value);
     };
+
+    render() {
+        return (
+            <Provider store={this.store}>
+                <div className={styles.app}>
+                    <input
+                        placeholder="Write task name.."
+                        value={this.store.newTask}
+                        onChange={this.updateTaskName}
+                        onKeyPress={this.addTaskByButton}
+                    />
+                    <button onClick={this.addTask}>Add task</button>
+                    <ToDoList toDoList={this.store.toDoList} />
+                    {this.store.doneList.length > 0 && <DoneList />}
+                </div>
+            </Provider>
+        );
+    }
 }

@@ -6,12 +6,24 @@ export default class listStore {
     @observable public newTask: string = '';
 
     public loadItems() {
-        const newItems = ['task1', 'task2', 'task3'];
-        this.toDoList = [...newItems];
+        if (localStorage.getItem('toDoList')) {
+            console.log('there is toDoStore');
+            this.toDoList = JSON.parse(localStorage.getItem('toDoList')!);
+        } else {
+            localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+            localStorage.setItem('doneList', JSON.stringify(this.doneList));
+        }
+    }
+
+    public clearLocalStorage() {
+        localStorage.removeItem('toDoList');
+        this.toDoList.length = 0;
+        this.loadItems();
     }
 
     public addNewTask() {
         this.toDoList.push(this.newTask);
+        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
     }
 
     public updateNewTaskName(inputValue: string) {
@@ -24,6 +36,7 @@ export default class listStore {
 
     public removeTask = (taskIndex: number) => {
         this.toDoList.splice(taskIndex, 1);
+        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
     };
 
     public markTaskDone = (taskIndex: number) => {

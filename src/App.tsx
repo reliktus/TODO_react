@@ -19,6 +19,10 @@ export default class App extends React.Component<{}, { taskName: string }> {
         this.listStore.loadItems();
     }
 
+    clearData = () => {
+        this.listStore.clearLocalStorage();
+    };
+
     render() {
         const stores = { store1: this.listStore };
         return (
@@ -27,6 +31,7 @@ export default class App extends React.Component<{}, { taskName: string }> {
                     <AddTaskInput />
                     <ToDoList />
                     {this.listStore.doneList.length > 0 && <DoneList />}
+                    <button onClick={this.clearData}>clear store</button>
                 </div>
             </Provider>
         );

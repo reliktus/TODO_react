@@ -19,22 +19,24 @@ export default class AddTaskInput extends Component<IAddTaskInput> {
     };
 
     private addTask = () => {
-        this.store.addTask();
+        this.store.addNewTask();
     };
 
     private updateTaskNameInStore = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.store.updateNewTaskName(event.target.value);
     };
     render() {
+        const AddTaskLabel = 'Add task';
+        const AddTaskPlaceholder = 'Write task name..';
         return (
             <div>
                 <input
-                    placeholder="Write task name.."
+                    placeholder={AddTaskPlaceholder}
                     value={this.store.newTask}
                     onChange={this.updateTaskNameInStore}
                     onKeyPress={this.addTaskByButton}
                 />
-                <button onClick={this.addTask}>Add task</button>
+                <button onClick={this.addTask}>{AddTaskLabel}</button>
             </div>
         );
     }

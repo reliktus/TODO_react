@@ -10,7 +10,7 @@ export default class listStore {
         this.toDoList = [...newItems];
     }
 
-    public addTask() {
+    public addNewTask() {
         this.toDoList.push(this.newTask);
     }
 
@@ -23,9 +23,11 @@ export default class listStore {
     }
 
     public removeTask = (taskIndex: number) => {
-        console.log('todolist before remove', this.toDoList);
-        console.log('remove task index in store', taskIndex);
         this.toDoList.splice(taskIndex, 1);
-        console.log('todolist afer remove', this.toDoList);
+    };
+
+    public markTaskDone = (taskIndex: number) => {
+        this.doneList.push(this.toDoList[taskIndex]);
+        this.toDoList.splice(taskIndex, 1);
     };
 }

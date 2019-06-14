@@ -1,29 +1,34 @@
+import Constants from 'Constants';
 import { observable } from 'mobx';
 
 export default class listStore {
     @observable public toDoList: string[] = [];
     @observable public doneList: string[] = [];
     @observable public newTask: string = '';
+    private APP = new Constants();
 
     public loadItems() {
-        if (localStorage.getItem('toDoList')) {
-            console.log('there is toDoStore');
-            this.toDoList = JSON.parse(localStorage.getItem('toDoList')!);
+        if (localStorage.getItem(this.APP.listNames.toDoList)) {
+            console.log('Store ', this.APP.listNames.toDoList, ' found.');
+            this.toDoList = JSON.parse(localStorage.getItem(this.APP.listNames.toDoList)!);
+            this.toDoList = JSON.parse(localStorage.getItem(this.APP.listNames.doneList)!);
         } else {
-            localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
-            localStorage.setItem('doneList', JSON.stringify(this.doneList));
+            localStorage.setItem(this.APP.listNames.toDoList, JSON.stringify(this.toDoList));
+            localStorage.setItem(this.APP.listNames.doneList, JSON.stringify(this.doneList));
         }
     }
 
     public clearLocalStorage() {
-        localStorage.removeItem('toDoList');
+        localStorage.removeItem(this.APP.listNames.toDoList);
+        localStorage.removeItem(this.APP.listNames.doneList);
         this.toDoList.length = 0;
+        this.doneList.length = 0;
         this.loadItems();
     }
 
     public addNewTask() {
         this.toDoList.push(this.newTask);
-        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+        localStorage.setItem(this.APP.listNames.toDoList, JSON.stringify(this.toDoList));
     }
 
     public updateNewTaskName(inputValue: string) {
@@ -36,7 +41,7 @@ export default class listStore {
 
     public removeTask = (taskIndex: number) => {
         this.toDoList.splice(taskIndex, 1);
-        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+        localStorage.setItem(this.APP.listNames.toDoList, JSON.stringify(this.toDoList));
     };
 
     public markTaskDone = (taskIndex: number) => {

@@ -19,11 +19,23 @@ export default class App extends React.Component<{}, { taskName: string }> {
         this.listStore.loadItems();
     }
 
-    clearData = () => {
+    private clearData = () => {
         this.listStore.clearLocalStorage();
     };
 
+    private displayLolcalStorage = () => {
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+
+        while (i--) {
+            values.push(localStorage.getItem(keys[i]));
+        }
+        console.log('all local stores', values);
+    };
+
     render() {
+        // this.displayLolcalStorage();
         const stores = { store1: this.listStore };
         return (
             <Provider {...stores}>

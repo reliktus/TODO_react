@@ -7,23 +7,33 @@ export default class listStore {
 
     public loadItems() {
         if (localStorage.getItem('toDoList')) {
-            console.log('there is toDoStore');
-            this.toDoList = JSON.parse(localStorage.getItem('toDoList')!);
+            this.createLocalStorageLists();
         } else {
-            localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
-            localStorage.setItem('doneList', JSON.stringify(this.doneList));
+            this.updateListsInLocalStorage();
         }
     }
 
-    public clearLocalStorage() {
+    private createLocalStorageLists() {
+        console.log('there is toDoStore');
+        this.toDoList = JSON.parse(localStorage.getItem('toDoList')!);
+        this.doneList = JSON.parse(localStorage.getItem('doneList')!);
+    }
+
+    private updateListsInLocalStorage() {
+        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+        localStorage.setItem('doneList', JSON.stringify(this.doneList));
+    }
+
+    public clearLocalStorageAndReload() {
         localStorage.removeItem('toDoList');
+        localStorage.removeItem('doneList');
         this.toDoList.length = 0;
-        this.loadItems();
+        this.doneList.length = 0;
     }
 
     public addNewTask() {
         this.toDoList.push(this.newTask);
-        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+        this.updateListsInLocalStorage();
     }
 
     public updateNewTaskName(inputValue: string) {
@@ -36,11 +46,12 @@ export default class listStore {
 
     public removeTask = (taskIndex: number) => {
         this.toDoList.splice(taskIndex, 1);
-        localStorage.setItem('toDoList', JSON.stringify(this.toDoList));
+        this.updateListsInLocalStorage();
     };
 
     public markTaskDone = (taskIndex: number) => {
         this.doneList.push(this.toDoList[taskIndex]);
         this.toDoList.splice(taskIndex, 1);
+        this.updateListsInLocalStorage();
     };
 }

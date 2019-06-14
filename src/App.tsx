@@ -20,7 +20,7 @@ export default class App extends React.Component<{}, { taskName: string }> {
     }
 
     clearData = () => {
-        this.listStore.clearLocalStorage();
+        this.listStore.clearLocalStorageAndReload();
     };
 
     render() {

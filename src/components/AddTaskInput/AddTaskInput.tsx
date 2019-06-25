@@ -1,9 +1,10 @@
-import { Button, TextField } from '@material-ui/core';
+import { Button, IconButton, InputAdornment, TextField } from '@material-ui/core';
 import Constants from 'Constants';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
 import listStore from 'stores/listStore';
+import styles from './AddTaskInput.module.scss';
 import { IAddTaskInput } from './IAddTaskInput';
 
 @inject('store1')
@@ -29,15 +30,32 @@ export default class AddTaskInput extends Component<IAddTaskInput> {
         this.store.updateNewTaskName(event.target.value);
     };
 
+    private clearTaskName = () => {
+        this.store.clearTaskName();
+    };
+
     render() {
         return (
-            <div>
+            <div className={styles.column}>
                 <TextField
+                    autoFocus={true}
+                    margin="normal"
                     label={this.CONST.AddTaskPlaceholder}
                     variant="outlined"
                     value={this.store.newTask}
                     onChange={this.updateTaskNameInStore}
                     onKeyPress={this.addTaskByButton}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                {this.store.newTask && (
+                                    <IconButton edge="end" aria-label="Clear task name" onClick={this.clearTaskName}>
+                                        X
+                                    </IconButton>
+                                )}
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <Button
                     variant="contained"

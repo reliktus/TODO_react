@@ -1,3 +1,4 @@
+import { Button, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
@@ -25,23 +26,41 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
     };
 
     render() {
-        const toDoList = this.store1.toDoList.map((item, index) => (
-            <div key={index} className={styles.row}>
-                <div>
-                    [ {index + 1} ] {item}
-                </div>
-                <span className={styles.done} onClick={() => this.markTaskDone(index)}>
-                    <button>V</button>
-                </span>
-                <span className={styles.remove}>
-                    <button onClick={() => this.removeTask(index)}>X</button>
-                </span>
-            </div>
-        ));
+        const tableToDoList = (
+            <Paper>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Number:</TableCell>
+                            <TableCell>Task name:</TableCell>
+                            <TableCell>Mark done</TableCell>
+                            <TableCell>Remove</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    {this.store1.toDoList.map((item, index) => (
+                        <TableRow>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{item}</TableCell>
+                            <TableCell>
+                                <Button variant="outlined" onClick={() => this.markTaskDone(index)}>
+                                    V
+                                </Button>
+                            </TableCell>
+                            <TableCell>
+                                <Button variant="outlined" onClick={() => this.removeTask(index)}>
+                                    X
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                    <TableBody />
+                </Table>
+            </Paper>
+        );
         const showToDoTask = (
             <div className={styles.tasks}>
                 <div>You have got {this.store1.toDoList.length} tasks to do:</div>
-                {toDoList}
+                {tableToDoList}
             </div>
         );
         const noTaskMessage = <div className={styles.noTasks}>You have done all Your tasks. Have a nice day :)</div>;

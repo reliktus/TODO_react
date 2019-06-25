@@ -2,6 +2,7 @@ import styles from 'App.module.scss';
 import AddTaskInput from 'components/AddTaskInput/AddTaskInput';
 import DoneList from 'components/doneList/DoneList';
 import ToDoList from 'components/toDoList/ToDoList';
+import Constants from 'Constants';
 import { observer, Provider } from 'mobx-react';
 import * as React from 'react';
 import listStore from 'stores/listStore';
@@ -9,6 +10,7 @@ import listStore from 'stores/listStore';
 @observer
 export default class App extends React.Component<{}, { taskName: string }> {
     private listStore: listStore;
+    private CONST = new Constants();
 
     constructor(props: any) {
         super(props);
@@ -42,7 +44,7 @@ export default class App extends React.Component<{}, { taskName: string }> {
                     <AddTaskInput />
                     <ToDoList />
                     {this.listStore.doneList.length > 0 && <DoneList />}
-                    <button onClick={this.clearData}>clear store</button>
+                    <button onClick={this.clearData}>{this.CONST.ClearStoreLabel}</button>
                 </div>
             </Provider>
         );

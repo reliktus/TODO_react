@@ -7,6 +7,14 @@ export default class listStore {
     @observable public newTask: string = '';
     private APP = new Constants();
 
+    public loadItems() {
+        if (localStorage.getItem(this.APP.listNames.toDoList)) {
+            this.getDataFromLocalStorage();
+        } else {
+            this.updateListsInLocalStorage();
+        }
+    }
+
     private getDataFromLocalStorage() {
         this.toDoList = JSON.parse(localStorage.getItem(this.APP.listNames.toDoList)!);
         this.doneList = JSON.parse(localStorage.getItem(this.APP.listNames.doneList)!);
@@ -15,14 +23,6 @@ export default class listStore {
     private updateListsInLocalStorage() {
         localStorage.setItem(this.APP.listNames.toDoList, JSON.stringify(this.toDoList));
         localStorage.setItem(this.APP.listNames.doneList, JSON.stringify(this.doneList));
-    }
-
-    public loadItems() {
-        if (localStorage.getItem(this.APP.listNames.toDoList)) {
-            this.getDataFromLocalStorage();
-        } else {
-            this.updateListsInLocalStorage();
-        }
     }
 
     public clearLocalStorage() {

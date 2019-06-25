@@ -1,3 +1,5 @@
+import { Button, TextField } from '@material-ui/core';
+import Constants from 'Constants';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
@@ -10,6 +12,7 @@ export default class AddTaskInput extends Component<IAddTaskInput> {
     @computed get store() {
         return this.props.store1 as listStore;
     }
+    private CONST = new Constants();
 
     private addTaskByButton = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.which === 13) {
@@ -25,18 +28,26 @@ export default class AddTaskInput extends Component<IAddTaskInput> {
     private updateTaskNameInStore = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.store.updateNewTaskName(event.target.value);
     };
+
     render() {
-        const AddTaskLabel = 'Add task';
-        const AddTaskPlaceholder = 'Write task name..';
         return (
             <div>
-                <input
-                    placeholder={AddTaskPlaceholder}
+                <TextField
+                    label={this.CONST.AddTaskPlaceholder}
+                    variant="outlined"
                     value={this.store.newTask}
                     onChange={this.updateTaskNameInStore}
                     onKeyPress={this.addTaskByButton}
                 />
-                <button onClick={this.addTask}>{AddTaskLabel}</button>
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="primary"
+                    onClick={this.addTask}
+                    disabled={!this.store.newTask}
+                >
+                    {this.CONST.AddTaskLabel}
+                </Button>
             </div>
         );
     }

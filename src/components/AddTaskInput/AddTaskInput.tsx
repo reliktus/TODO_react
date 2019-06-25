@@ -14,12 +14,12 @@ export default class AddTaskInput extends Component<IAddTaskInput> {
     private addTaskByButton = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.which === 13) {
             this.addTask();
-            this.store.clearTaskName();
         }
     };
 
     private addTask = () => {
         this.store.addNewTask();
+        this.store.clearTaskName();
     };
 
     private updateTaskNameInStore = (event: React.ChangeEvent<HTMLInputElement>) => {

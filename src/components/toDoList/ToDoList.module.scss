@@ -6,6 +6,16 @@
     flex-direction: column;
     padding: 5px;
 
+    &__label {
+        font-size: 1.25rem;
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        font-weight: 500;
+        line-height: 1.6;
+        letter-spacing: 0.0075em;
+        color: primary;
+        margin: 10px;
+    }
+
     .tasks {
         .done {
             margin: auto 5px auto auto;

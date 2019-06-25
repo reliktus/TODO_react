@@ -1,4 +1,4 @@
-import { Button, Paper } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import styles from 'App.module.scss';
 import AddTaskInput from 'components/AddTaskInput/AddTaskInput';
@@ -43,7 +43,7 @@ export default class App extends React.Component<{}, { taskName: string }> {
                 <div className={styles.app}>
                     <AddTaskInput />
                     <ToDoList />
-                    <Paper>{this.listStore.doneList.length > 0 && <DoneList />}</Paper>
+                    {this.listStore.doneList.length > 0 && <DoneList />}
                     <Button variant="contained" color="primary" onClick={this.clearData} className={styles.menuButton}>
                         <Menu />
                     </Button>

@@ -28,8 +28,9 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
     render() {
         const tableToDoList = (
             <Paper>
-                <Table>
+                <Table size="small">
                     <TableHead>
+                        <div className={styles.toDoList__label}>TO DO LIST</div>
                         <TableRow>
                             <TableCell>Number:</TableCell>
                             <TableCell>Task name:</TableCell>
@@ -57,12 +58,7 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
                 </Table>
             </Paper>
         );
-        const showToDoTask = (
-            <div className={styles.tasks}>
-                <div>You have got {this.store1.toDoList.length} tasks to do:</div>
-                {tableToDoList}
-            </div>
-        );
+        const showToDoTask = <div className={styles.tasks}>{tableToDoList}</div>;
         const noTaskMessage = <div className={styles.noTasks}>You have done all Your tasks. Have a nice day :)</div>;
         return <div className={styles.toDoList}>{this.GotTasksToDo() ? showToDoTask : noTaskMessage}</div>;
     }

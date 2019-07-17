@@ -1,4 +1,4 @@
-import Constants from 'Constants';
+import Constants from 'common/Constants';
 import { observable } from 'mobx';
 import { doneItem } from './listStore';
 
@@ -20,7 +20,6 @@ export default class listStore {
             this.updateListsInLocalStorage();
         }
     }
-
     private getDataFromLocalStorage() {
         this.toDoList = JSON.parse(localStorage.getItem(this.APP.listNames.toDoList)!);
         this.doneList = JSON.parse(localStorage.getItem(this.APP.listNames.doneList)!);

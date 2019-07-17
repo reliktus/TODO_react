@@ -1,5 +1,5 @@
 import { Button, IconButton, InputAdornment, TextField } from '@material-ui/core';
-import Constants from 'Constants';
+import Constants from 'common/Constants';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';

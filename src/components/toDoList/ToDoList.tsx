@@ -30,7 +30,7 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
             <Paper>
                 <Table size="small">
                     <TableHead>
-                        <div className={styles.toDoList__label}>TO DO LIST</div>
+                        <TableCell className={styles.toDoList__label}>TO DO LIST</TableCell>
                         <TableRow>
                             <TableCell>Number:</TableCell>
                             <TableCell>Task name:</TableCell>
@@ -38,23 +38,24 @@ export default class ToDoList extends React.Component<IToDoListProps, {}> {
                             <TableCell>Remove</TableCell>
                         </TableRow>
                     </TableHead>
-                    {this.store1.toDoList.map((item, index) => (
-                        <TableRow>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>{item}</TableCell>
-                            <TableCell>
-                                <Button variant="outlined" onClick={() => this.markTaskDone(index)}>
-                                    V
-                                </Button>
-                            </TableCell>
-                            <TableCell>
-                                <Button variant="outlined" onClick={() => this.removeTask(index)}>
-                                    X
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                    <TableBody />
+                    <TableBody>
+                        {this.store1.toDoList.map((item, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{item}</TableCell>
+                                <TableCell>
+                                    <Button variant="outlined" onClick={() => this.markTaskDone(index)}>
+                                        V
+                                    </Button>
+                                </TableCell>
+                                <TableCell>
+                                    <Button variant="outlined" onClick={() => this.removeTask(index)}>
+                                        X
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
                 </Table>
             </Paper>
         );

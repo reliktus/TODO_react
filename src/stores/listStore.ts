@@ -1,9 +1,15 @@
 import Constants from 'Constants';
 import { observable } from 'mobx';
+import { doneItem } from './listStore';
+
+export interface doneItem {
+    name: string;
+    time: string;
+}
 
 export default class listStore {
     @observable public toDoList: string[] = [];
-    @observable public doneList: string[] = [];
+    @observable public doneList: doneItem[] = [];
     @observable public newTask: string = '';
     private APP = new Constants();
 
@@ -52,7 +58,10 @@ export default class listStore {
     };
 
     public markTaskDone = (taskIndex: number) => {
-        this.doneList.push(this.toDoList[taskIndex]);
+        let doneTask: doneItem = { name: this.toDoList[taskIndex], time: 'new Date()' };
+        console.log(doneTask.time);
+        // this.doneList.push(this.toDoList[taskIndex]);
+        this.doneList.push(doneTask);
         this.toDoList.splice(taskIndex, 1);
         this.updateListsInLocalStorage();
     };

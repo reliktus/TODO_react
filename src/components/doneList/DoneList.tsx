@@ -1,3 +1,4 @@
+import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import React from 'react';
@@ -14,7 +15,26 @@ export default class DoneList extends React.Component<IDoneList, {}> {
 
     render() {
         const DoneListLabel = 'Done list:';
-        const DoneListItems = this.store.doneList.map((item, index) => <div key={index}>{item}</div>);
+        const DoneListItems = (
+            <Paper>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Task name:</TableCell>
+                            <TableCell>Finish date:</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.store.doneList.map((item, index) => (
+                            <TableRow key={index}>
+                                <TableCell>{item.name}</TableCell>
+                                <TableCell>{item.time}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
+        );
 
         return (
             <div className={style.doneList}>
